@@ -47,7 +47,55 @@ namespace GILI_Inventory.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Edit(int Id)
+        {
+            ProductCUDTO Product = _productOperation.GetProduct(Id);
+            var model = GetUpdateProductModel(Product);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ProductCUVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(GetUpdateProductModel(model.Product));
+            }
+
+            _productOperation.UpdateProduct(model.Product);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Detail(int Id)
+        {
+
+            ProductCUDTO model = _productOperation.GetProduct(Id);
+
+            return View(model);
+        }
+
+        public IActionResult Delete(int Id)
+        {
+
+            ProductCUDTO Product = _productOperation.GetProduct(Id);
+
+            _productOperation.DeleteProduct(Product);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private ProductCUVM GetCreateProductModel(ProductCUDTO product)
+        {
+            ProductCUVM model = new ProductCUVM()
+            {
+                Product = product
+            };
+
+            return model;
+        }
+
+        private ProductCUVM GetUpdateProductModel(ProductCUDTO product)
         {
             ProductCUVM model = new ProductCUVM()
             {

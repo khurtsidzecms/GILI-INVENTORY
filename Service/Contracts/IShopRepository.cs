@@ -8,5 +8,7 @@ namespace Service.Contracts
     public interface IShopRepository : IRepositoryBase<Shop>
     {
         IEnumerable<Shop> GetAll();
+
+        Shop GetShop(int Id);
     }
 }

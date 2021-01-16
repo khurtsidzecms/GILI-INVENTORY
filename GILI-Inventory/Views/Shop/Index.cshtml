@@ -24,17 +24,30 @@
                                         <th class="border-0 fga">დასახელება</th>
                                         <th class="border-0 fga">მისამართი</th>
                                         <th class="border-0 fga">მაღაზიის ტიპი</th>
+                                        <th class="border-0 fga">ფუნქცია</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model.Shop)
                                     {
-                                        <tr>
-                                            <td>@item.Id</td>
-                                            <td>@item.Name</td>
-                                            <td>@item.Address</td>
-                                            <td>@item.Type</td>
-                                        </tr>
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Address</td>
+                                        <td>@item.Type</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    ქმედება
+                                                </a>
+
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" asp-route-id="@item.Id" asp-action="Edit" asp-controller="Shop">რედაქტირება</a>
+                                                    <a class="dropdown-item" asp-route-id="@item.Id" asp-action="Delete" asp-controller="Shop">წაშლა</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>

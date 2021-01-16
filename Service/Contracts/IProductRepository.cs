@@ -8,5 +8,7 @@ namespace Service.Contracts
     public interface IProductRepository : IRepositoryBase<Product>
     {
         IEnumerable<Product> GetAll();
+
+        Product GetProduct(int Id);
     }
 }

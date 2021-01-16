@@ -7094,3 +7094,17 @@ Media Query
 .card-title {
     line-height: 40px;
 }
+
+.inner-product-title {
+    font-size: 18px;
+    display: inline-block !important;
+    font-family: 'BPG Nino Mtavruli Bold' !important;
+}
+
+.product-size strong {
+    font-size: 19px;
+}
+
+.product-details {
+    min-height: 520px;
+}

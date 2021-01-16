@@ -27,10 +27,33 @@ namespace BLL.Operations
             return _mapper.Map<IEnumerable<ProductListDTO>>(products);
         }
 
+        public ProductCUDTO GetProduct(int Id)
+        {
+            var product = _uow.Product.GetProduct(Id);
+
+            return _mapper.Map<ProductCUDTO>(product);
+        }
+
         public void CreateProduct(ProductCUDTO model)
         {
             var product = _mapper.Map<Product>(model);
             _uow.Product.Create(product);
+            _uow.Commit();
+        }
+
+        public void UpdateProduct(ProductCUDTO model)
+        {
+            var dbProduct = _uow.Product.GetProduct(model.Id);
+            _mapper.Map<ProductCUDTO, Product>(model, dbProduct);
+            _uow.Product.Update(dbProduct);
+            _uow.Commit();
+        }
+
+        public void DeleteProduct(ProductCUDTO model)
+        {
+            var dbProduct = _uow.Product.GetProduct(model.Id);
+            _mapper.Map<ProductCUDTO, Product>(model, dbProduct);
+            _uow.Product.Delete(dbProduct);
             _uow.Commit();
         }
     }

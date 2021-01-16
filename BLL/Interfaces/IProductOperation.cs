@@ -1,4 +1,5 @@
 ﻿using BLL.DTOs.Product;
+using DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,12 @@ namespace BLL.Interfaces
     {
         public IEnumerable<ProductListDTO> GetAll();
 
+        public ProductCUDTO GetProduct(int Id);
+
         public void CreateProduct(ProductCUDTO model);
+
+        public void UpdateProduct(ProductCUDTO model);
+
+        public void DeleteProduct(ProductCUDTO model);
     }
 }

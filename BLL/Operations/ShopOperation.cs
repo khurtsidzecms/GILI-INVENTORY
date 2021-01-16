@@ -36,10 +36,33 @@ namespace BLL.Operations
             return model;
         }
 
+        public ShopCUDTO GetShop(int Id)
+        {
+            var shop = _uow.Shop.GetShop(Id);
+
+            return _mapper.Map<ShopCUDTO>(shop);
+        }
+
         public void CreateShop(ShopCUDTO model)
         {
             var shop = _mapper.Map<Shop>(model);
             _uow.Shop.Create(shop);
+            _uow.Commit();
+        }
+
+        public void UpdateShop(ShopCUDTO model)
+        {
+            var dbShop = _uow.Shop.GetShop(model.Id);
+            _mapper.Map<ShopCUDTO, Shop>(model, dbShop);
+            _uow.Shop.Update(dbShop);
+            _uow.Commit();
+        }
+
+        public void DeleteShop(ShopCUDTO model)
+        {
+            var dbShop = _uow.Shop.GetShop(model.Id);
+            _mapper.Map<ShopCUDTO, Shop>(model, dbShop);
+            _uow.Shop.Delete(dbShop);
             _uow.Commit();
         }
     }

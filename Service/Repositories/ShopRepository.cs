@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Service.Repositories
@@ -17,6 +18,11 @@ namespace Service.Repositories
         public IEnumerable<Shop> GetAll()
         {
             return Context.Shop.Include(e => e.Type);
+        }
+
+        public Shop GetShop(int Id)
+        {
+            return Context.Shop.Where(x => x.Id == Id).FirstOrDefault();
         }
     }
 }

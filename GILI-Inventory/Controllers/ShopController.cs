@@ -48,7 +48,48 @@ namespace GILI_Inventory.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Edit(int Id)
+        {
+            ShopCUDTO Shop = _shopOperation.GetShop(Id);
+            var model = GetUpdateShopModel(Shop);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ShopCUVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(GetUpdateShopModel(model.Shop));
+            }
+
+            _shopOperation.UpdateShop(model.Shop);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int Id)
+        {
+
+            ShopCUDTO Shop = _shopOperation.GetShop(Id);
+
+            _shopOperation.DeleteShop(Shop);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private ShopCUVM GetCreateShopModel(ShopCUDTO shop)
+        {
+            ShopCUVM model = new ShopCUVM()
+            {
+                Components = _shopOperation.GetShopFormComponents(),
+                Shop = shop
+            };
+
+            return model;
+        }
+
+        private ShopCUVM GetUpdateShopModel(ShopCUDTO shop)
         {
             ShopCUVM model = new ShopCUVM()
             {
