@@ -1,0 +1,50 @@
+﻿@model ShopListVM
+@{
+    ViewData["Title"] = "მაღაზიები";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- products  -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <h5 class="card-header fgnb fbold fsize-20">
+                        <span class="card-title">ყველა მაღაზია</span>
+                        <a asp-action="Create" asp-controller="Shop" class="float-right btn btn-success">დამატება</a>
+                    </h5>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0 fga">#</th>
+                                        <th class="border-0 fga">დასახელება</th>
+                                        <th class="border-0 fga">მისამართი</th>
+                                        <th class="border-0 fga">მაღაზიის ტიპი</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Shop)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Address</td>
+                                            <td>@item.Type</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end of products  -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+</div>

@@ -1,13 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DAL.Context;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Service.Contracts;
+using Service.Repositories;
+using BLL.Interfaces;
+using BLL.Operations;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace GILI_Inventory
 {
@@ -23,6 +27,18 @@ namespace GILI_Inventory
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<InventoryDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("InventoryData")));
+
+            services.AddScoped<IUOW, UOW>();
+
+            services.AddAutoMapper(typeof(BLL.Mappings.MapProfile).Assembly);
+
+            services.AddTransient<IProductOperation, ProductOperation>();
+            services.AddTransient<IShopOperation, ShopOperation>();
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddControllersWithViews();
         }
 

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using GILI_Inventory.Models;
+using Service.Contracts;
+using BLL.Interfaces;
 
 namespace GILI_Inventory.Controllers
 {
@@ -13,14 +15,22 @@ namespace GILI_Inventory.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProductOperation _productOperation;
+
+        public HomeController(ILogger<HomeController> logger, IProductOperation productOperation)
         {
             _logger = logger;
+            _productOperation = productOperation;
         }
 
         public IActionResult Index()
         {
-            return View();
+            ProductListVM model = new ProductListVM()
+            {
+                Products = _productOperation.GetAll()
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()

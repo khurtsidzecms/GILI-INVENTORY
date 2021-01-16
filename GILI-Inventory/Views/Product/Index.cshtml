@@ -1,0 +1,63 @@
+﻿@model ProductListVM
+@{
+    ViewData["Title"] = "პროდუქტები";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- products  -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <h5 class="card-header fgnb fbold fsize-20">
+                        <span class="card-title">ყველა პროდუქტი</span>
+                        <a asp-action="Create" asp-controller="Product" class="float-right btn btn-success">დამატება</a>
+                    </h5>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0 fga">#</th>
+                                        <th class="border-0 fga">ფოტო</th>
+                                        <th class="border-0 fga">დასახელება</th>
+                                        <th class="border-0 fga">კოდი</th>
+                                        <th class="border-0 fga">მწარმოებელი კომპანია</th>
+                                        <th class="border-0 fga">იმპორტის თარიღი</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Products)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>
+                                                @if (item.Image != null)
+                                                {
+                                                    <div class="m-r-10"><img src="@item.Image" alt="user" class="rounded" width="45"></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="m-r-10"><img src="../assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
+                                                }
+                                            </td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Code</td>
+                                            <td>@item.Brand</td>
+                                            <td>@item.ImportDate</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end of products  -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+</div>
