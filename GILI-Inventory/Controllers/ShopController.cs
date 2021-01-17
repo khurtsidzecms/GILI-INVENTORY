@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using BLL.DTOs.Product;
 using BLL.Interfaces;
 using GILI_Inventory.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GILI_Inventory.Controllers
 {
+    [Authorize]
     public class ShopController : Controller
     {
         private readonly IShopOperation _shopOperation;
@@ -65,7 +67,9 @@ namespace GILI_Inventory.Controllers
 
             _shopOperation.UpdateShop(model.Shop);
 
-            return RedirectToAction(nameof(Index));
+            var viewModel = GetUpdateShopModel(model.Shop);
+            ViewBag.Message = "მაღაზია წარმატებით განახლდა!";
+            return View(viewModel);
         }
 
         public IActionResult Delete(int Id)

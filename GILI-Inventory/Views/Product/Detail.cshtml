@@ -1,4 +1,4 @@
-﻿@model ProductDetailVM
+﻿@model ProductCUVM
 @{
     ViewData["Title"] = Model.Product.Name;
 }
@@ -18,11 +18,11 @@
                                     <div class="carousel-item active">
                                         @if (Model.Product.Image != null)
                                         {
-                                            <div class="m-r-10"><img src="@Model.Product.Image" alt="user" class="rounded" width="300"></div>
+                                            <div class="m-r-10"><img src="@Model.Product.Image" alt="user" class="rounded product-detail-image" height="258"></div>
                                         }
                                         else
                                         {
-                                            <div class="m-r-10"><img src="../../../assets/images/product-pic.jpg" alt="user" class="rounded" width="300"></div>
+                                            <div class="m-r-10"><img src="../../../assets/images/product-pic.jpg" alt="user" class="rounded product-detail-image" height="258"></div>
                                         }
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                             <div class="product-size border-bottom">
                                 <h4 class="inner-product-title">კოდი: </h4> <strong>@Model.Product.Code</strong> <br />
                                 <h4 class="inner-product-title">მწარმოებელი კომპანია: </h4> <strong>@Model.Product.Brand</strong> <br />
-                                <h4 class="inner-product-title">იმპორტის თარიღი: </h4> <strong>@Model.Product.ImportDate</strong> <br />
+                                <h4 class="inner-product-title">იმპორტის თარიღი: </h4> <strong>@Model.Product.ImportDate?.ToString("dd.MM.yyyy")</strong> <br />
                             </div>
                             <div class="product-description">
                                 <h4 class="mb-1 fgnb">აღწერა</h4>

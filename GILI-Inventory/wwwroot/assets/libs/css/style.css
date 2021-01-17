@@ -7096,7 +7096,7 @@ Media Query
 }
 
 .inner-product-title {
-    font-size: 18px;
+    font-size: 16px;
     display: inline-block !important;
     font-family: 'BPG Nino Mtavruli Bold' !important;
 }
@@ -7107,4 +7107,34 @@ Media Query
 
 .product-details {
     min-height: 520px;
+}
+
+#dropdownMenuLink {
+    font-family: 'BPG Nino Mtavruli';
+    font-size: 15px;
+    padding: 9px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dropdown-item {
+    font-family: 'BPG Nino Mtavruli';
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    font-size: 13px;
+}
+
+.ProductImage {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.product-detail-image {
+    margin: 0px auto;
+    display: block;
+}
+
+.bootstrap-datetimepicker-widget > * {
+    font-size: 12px!important;
 }

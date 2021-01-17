@@ -12,6 +12,8 @@ using BLL.Interfaces;
 using BLL.Operations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace GILI_Inventory
 {
@@ -29,6 +31,18 @@ namespace GILI_Inventory
         {
             services.AddDbContext<InventoryDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("InventoryData")));
+
+            services.AddIdentity<User, IdentityRole>(opts =>
+            {
+                opts.Password.RequiredLength = 6;
+                opts.User.RequireUniqueEmail = true;
+                opts.Password.RequireDigit = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireNonAlphanumeric = false;
+            })
+                .AddEntityFrameworkStores<InventoryDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddScoped<IUOW, UOW>();
 
@@ -59,6 +73,8 @@ namespace GILI_Inventory
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

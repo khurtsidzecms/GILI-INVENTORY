@@ -4,18 +4,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using BLL.DTOs.Product;
 using BLL.Interfaces;
+using GILI_Inventory.Helpers;
 using GILI_Inventory.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GILI_Inventory.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductOperation _productOperation;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public ProductController(IProductOperation productOperation)
+        public ProductController(IProductOperation productOperation, IWebHostEnvironment hostingEnvironment)
         {
             _productOperation = productOperation;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
@@ -42,6 +48,7 @@ namespace GILI_Inventory.Controllers
                 return View(GetCreateProductModel(model.Product));
             }
 
+            model.Product.Image = FileUploader.UploadFile(model.Product.File, _hostingEnvironment);
             _productOperation.CreateProduct(model.Product);
 
             return RedirectToAction(nameof(Index));
@@ -62,15 +69,23 @@ namespace GILI_Inventory.Controllers
                 return View(GetUpdateProductModel(model.Product));
             }
 
+            var image = FileUploader.UploadFile(model.Product.File, _hostingEnvironment);
+            var picture = !string.IsNullOrEmpty(image) ? image : model.Product.Image;
+            model.Product.Image = picture;
             _productOperation.UpdateProduct(model.Product);
 
-            return RedirectToAction(nameof(Index));
+            var viewModel = GetUpdateProductModel(model.Product);
+            ViewBag.Message = "პროდუქტი წარმატებით განახლდა!";
+            return View(viewModel);
         }
 
         public IActionResult Detail(int Id)
         {
 
-            ProductCUDTO model = _productOperation.GetProduct(Id);
+            ProductCUVM model = new ProductCUVM()
+            {
+                Product = _productOperation.GetProduct(Id)
+            };
 
             return View(model);
         }

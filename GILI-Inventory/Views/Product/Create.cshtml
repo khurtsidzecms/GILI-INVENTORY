@@ -10,49 +10,10 @@
                 <div class="card">
                     <h5 class="card-header fgnb">პროდუქტის დამატება</h5>
                     <div class="card-body">
-                        <form asp-action="Create">
-                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                        <form asp-action="Create" enctype="multipart/form-data">
 
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label asp-for="Product.Name" class="col-form-label fga">დასახელება</label>
-                                        <input asp-for="Product.Name" class="form-control">
-                                        <span asp-validation-for="Product.Name" class="text-danger fga"></span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label asp-for="Product.Code" class="col-form-label fga">კოდი</label>
-                                        <input asp-for="Product.Code" class="form-control">
-                                        <span asp-validation-for="Product.Code" class="text-danger fga"></span>
-                                    </div>
-                                </div>
-                            </div>
+                            <partial name="~/Views/Product/Helper/ProductCUViewForm.cshtml" model="Model" />
 
-                            <div class="form-group">
-                                <label asp-for="Product.Description" class="col-form-label fga">აღწერა</label>
-                                <textarea asp-for="Product.Description" class="form-control" rows="3"></textarea>
-                                <span asp-validation-for="Product.Description" class="text-danger fga"></span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label asp-for="Product.Brand" class="col-form-label fga">მწარმოებელი კომპანია</label>
-                                        <input asp-for="Product.Brand" class="form-control">
-                                        <span asp-validation-for="Product.Brand" class="text-danger fga"></span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label asp-for="Product.ImportDate" class="col-form-label fga">იმპორტის თარიღი</label>
-                                        <input asp-for="Product.ImportDate" class="form-control datepicker">
-                                        <span asp-validation-for="Product.ImportDate" class="text-danger fga"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success fgnb">დამატება</button>
                                 <a asp-action="Index" class="float-right fga" style="margin-top: 5px;">უკან დაბრუნება</a>
@@ -64,3 +25,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts  {
+    <script src="~/assets/vendor/datepicker/moment.js"></script>
+    <script src="~/assets/vendor/datepicker/tempusdominus-bootstrap-4.js"></script>
+    <script src="~/assets/vendor/datepicker/datepicker.js"></script>
+}

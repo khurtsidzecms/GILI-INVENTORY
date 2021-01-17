@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using GILI_Inventory.Models;
 using Service.Contracts;
 using BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GILI_Inventory.Controllers
 {
@@ -23,19 +24,15 @@ namespace GILI_Inventory.Controllers
             _productOperation = productOperation;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             ProductListVM model = new ProductListVM()
             {
-                Products = _productOperation.GetAll()
+                Products = _productOperation.GetAll().Take(3)
             };
 
             return View(model);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

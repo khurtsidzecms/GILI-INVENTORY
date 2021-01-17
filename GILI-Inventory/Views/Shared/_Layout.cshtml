@@ -25,19 +25,22 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html">GILI Inventory</a>
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home">GILI Inventory</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                                @if (User?.Identity?.IsAuthenticated ?? false)
+                                {
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">Administrator</h5>
+                                    <h5 class="mb-0 text-white nav-user-name">@User.Identity.Name</h5>
                                 </div>
-                                <a class="dropdown-item fga" href="#"><i class="fas fa-power-off mr-2"></i>გამოსვლა</a>
+                                <a class="dropdown-item fga" asp-action="Logout" asp-controller="Account"><i class="fas fa-power-off mr-2"></i>გამოსვლა</a>
+                                }
                             </div>
                         </li>
                     </ul>
@@ -72,7 +75,10 @@
                                 <a class="nav-link fgnb fbold  @Html.IsActiveRoute(actions: "Index", controllers: "Shop")" asp-controller="Shop" asp-action="Index"><i class="fa fa-fw fa-shopping-cart fsize-16 fmove-icon"></i>მაღაზიები</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link fgnb fbold" href="login.html"><i class="fa fa-fw fa-sign-out-alt fsize-16 fmove-icon"></i>გამოსვლა</a>
+                                <a class="nav-link fgnb fbold  @Html.IsActiveRoute(actions: "Index", controllers: "User")" asp-controller="User" asp-action="Index"><i class="fa fa-fw fa-user fsize-16 fmove-icon"></i>მომხმარებლები</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link fgnb fbold" asp-action="Logout" asp-controller="Account"><i class="fa fa-fw fa-sign-out-alt fsize-16 fmove-icon"></i>გამოსვლა</a>
                             </li>
                         </ul>
                     </div>
@@ -98,7 +104,7 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="text-md-right footer-links d-none d-sm-block">
-                                Developed by  <a href="https://github.com/" class="fbold">GILI Team</a>.
+                                Developed by  <a href="https://github.com/khurtsidzecms/GILI-Inventory" class="fbold">GILI Team</a>.
                             </div>
                         </div>
                     </div>

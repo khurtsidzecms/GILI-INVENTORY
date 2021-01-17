@@ -1,4 +1,5 @@
 ﻿using DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace DAL.Context
 {
-    public class InventoryDbContext : DbContext
+    public class InventoryDbContext : IdentityDbContext<User>
     {
         public InventoryDbContext(DbContextOptions options)
             : base(options)

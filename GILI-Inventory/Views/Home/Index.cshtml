@@ -129,11 +129,11 @@
                                         <td>@item.Name</td>
                                         <td>@item.Code</td>
                                         <td>@item.Brand</td>
-                                        <td>@item.ImportDate</td>
+                                        <td>@item.ImportDate.ToString("dd.MM.yyyy")</td>
                                     </tr>
                                     }
                                     <tr>
-                                        <td colspan="8"><a href="" class="btn btn-outline-light float-right fgnb fbold">ყველა პროდუქტი</a></td>
+                                        <td colspan="8"><a asp-action="Index" asp-controller="Product" class="btn btn-outline-light float-right fgnb fbold">ყველა პროდუქტი</a></td>
                                     </tr>
                                 </tbody>
                             </table>

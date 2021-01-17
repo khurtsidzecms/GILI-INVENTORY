@@ -1,5 +1,6 @@
-﻿
-@{
+﻿@model BLL.DTOs.User.UserLoginDTO
+
+@{ 
     Layout = null;
 }
 
@@ -17,7 +18,6 @@
     <link rel="stylesheet" href="~/assets/libs/css/style.css">
     <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <style>
-
         html,
         body {
             height: 100%;
@@ -42,12 +42,18 @@
         <div class="card ">
             <div class="card-header text-center"><a href=""><h1>GILI Inventory</h1></a><span class="splash-description fgnb fsize-24 fbold">ავტორიზაცია</span></div>
             <div class="card-body">
-                <form>
+                <form asp-action="Login">
+                    <input type="hidden" value="@ViewBag.returnUrl" name="returnUrl" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                     <div class="form-group">
-                        <input class="form-control form-control-lg fga fsize-16" id="username" type="text" placeholder="Username / Email" autocomplete="off">
+                        <input asp-for="UserName" class="form-control form-control-lg fga fsize-16" placeholder="Username" autocomplete="off" />
+                        <span asp-validation-for="UserName" class="text-danger fga"></span>
                     </div>
                     <div class="form-group">
-                        <input class="form-control form-control-lg fga fsize-16" id="password" type="password" placeholder="პაროლი">
+                        <input asp-for="Password" class="form-control form-control-lg fga fsize-16" type="Password" placeholder="პაროლი" />
+                        <span asp-validation-for="Password" class="text-danger fga"></span>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block fgnb fsize-16">შესვლა</button>
                 </form>

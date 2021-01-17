@@ -1,0 +1,64 @@
+﻿@model ProductCUVM
+
+<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (!string.IsNullOrEmpty(Model.Product.Image))
+        {
+            <img src="@Model.Product.Image" class="ProductImage" />
+        }
+        <div class="form-group">
+            <label asp-for="Product.File" class="col-form-label fga">ფოტო</label>
+            <input type="file" asp-for="Product.File" class="form-control">
+            <input type="hidden" asp-for="Product.Image" />
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="Product.Name" class="col-form-label fga">დასახელება</label>
+                    <input asp-for="Product.Name" class="form-control">
+                    <span asp-validation-for="Product.Name" class="text-danger fga"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="Product.Code" class="col-form-label fga">კოდი</label>
+                    <input asp-for="Product.Code" class="form-control">
+                    <span asp-validation-for="Product.Code" class="text-danger fga"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Product.Description" class="col-form-label fga">აღწერა</label>
+            <textarea asp-for="Product.Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Product.Description" class="text-danger fga"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="Product.Brand" class="col-form-label fga">მწარმოებელი კომპანია</label>
+                    <input asp-for="Product.Brand" class="form-control">
+                    <span asp-validation-for="Product.Brand" class="text-danger fga"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label asp-for="Product.ImportDate" class="col-form-label fga">იმპორტის თარიღი</label>
+                    <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                        <input asp-for="Product.ImportDate" type="text" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#datetimepicker4" />
+                        <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Product.ImportDate" class="text-danger fga"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

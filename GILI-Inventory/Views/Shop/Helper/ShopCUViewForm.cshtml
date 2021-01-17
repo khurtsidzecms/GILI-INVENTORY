@@ -1,0 +1,27 @@
+﻿@model ShopCUVM
+
+<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+<div class="row">
+    <div class="col-4">
+        <div class="form-group">
+            <label asp-for="Shop.Name" class="col-form-label fga">დასახელება</label>
+            <input asp-for="Shop.Name" class="form-control">
+            <span asp-validation-for="Shop.Name" class="text-danger fga"></span>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label asp-for="Shop.Address" class="col-form-label fga">მისამართი</label>
+            <input asp-for="Shop.Address" class="form-control">
+            <span asp-validation-for="Shop.Address" class="text-danger fga"></span>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label asp-for="Shop.TypeId" class="col-form-label fga">მაღაზიის ტიპი</label>
+            <select asp-items="Model.Components.Types" asp-for="Shop.TypeId" class="form-control"></select>
+            <span asp-validation-for="Shop.TypeId" class="text-danger fga"></span>
+        </div>
+    </div>
+</div>
