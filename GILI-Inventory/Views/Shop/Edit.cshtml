@@ -32,3 +32,23 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+    $("table .chkbox").change(function (e) {
+        if (!$(this).is(":checked")) {
+            var product = $(this).parent().parent();
+            $(product).find('.barcode').val('');
+            $(product).find('.price').val('0');
+        }
+    });
+
+    function onlyNumbersValidate() {
+        var $input = $(this);
+        $input.val($input.val().replace(/[^\d]+/g,''));
+    }
+
+    $("table tbody tr").on("propertychange input", ".barcode", onlyNumbersValidate);
+    </script>
+}
