@@ -11,6 +11,10 @@ namespace BLL.Interfaces
     {
         public IEnumerable<ShopListDTO> GetAll();
 
+        public IEnumerable<ShopProductDTO> GetProductAll(int Id);
+
+        public IEnumerable<ShopListDTO> SearchAll(string searchName, string searchAddress, int searchType);
+
         public ShopCUDTO GetShop(int Id);
 
         ShopCUComponents GetShopFormComponents();
@@ -18,6 +22,8 @@ namespace BLL.Interfaces
         public void CreateShop(ShopCUDTO model);
 
         public void UpdateShop(ShopCUDTO model);
+
+        public void DeleteProducts(int Id);
 
         public void DeleteShop(ShopCUDTO model);
     }

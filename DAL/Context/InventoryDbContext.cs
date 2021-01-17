@@ -20,6 +20,8 @@ namespace DAL.Context
 
         public DbSet<Dictionary> Dictionaries { get; set; }
 
+        public object ShopProduct { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

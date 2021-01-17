@@ -18,10 +18,16 @@ namespace GILI_Inventory.Controllers
 
         private readonly IProductOperation _productOperation;
 
-        public HomeController(ILogger<HomeController> logger, IProductOperation productOperation)
+        private readonly IShopOperation _shopOperation;
+
+        public HomeController(
+            ILogger<HomeController> logger,
+            IProductOperation productOperation,
+            IShopOperation shopOperation)
         {
             _logger = logger;
             _productOperation = productOperation;
+            _shopOperation = shopOperation;
         }
 
         [Authorize]
@@ -31,6 +37,9 @@ namespace GILI_Inventory.Controllers
             {
                 Products = _productOperation.GetAll().Take(3)
             };
+
+            ViewBag.countProducts = _productOperation.GetAll().Count();
+            ViewBag.countShops    = _shopOperation.GetAll().Count();
 
             return View(model);
         }

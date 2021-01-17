@@ -17,40 +17,63 @@
                     </h5>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table">
-                                <thead class="bg-light">
-                                    <tr class="border-0">
-                                        <th class="border-0 fga">#</th>
-                                        <th class="border-0 fga">დასახელება</th>
-                                        <th class="border-0 fga">მისამართი</th>
-                                        <th class="border-0 fga">მაღაზიის ტიპი</th>
-                                        <th class="border-0 fga">ფუნქცია</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model.Shop)
-                                    {
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.Name</td>
-                                        <td>@item.Address</td>
-                                        <td>@item.Type</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    ქმედება
-                                                </a>
+                            <form asp-action="Index">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th class="border-0 fga">#</th>
+                                            <th class="border-0 fga">დასახელება</th>
+                                            <th class="border-0 fga">მისამართი</th>
+                                            <th class="border-0 fga">მაღაზიის ტიპი</th>
+                                            <th class="border-0 fga">ფუნქცია</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                    <a class="dropdown-item" asp-route-id="@item.Id" asp-action="Edit" asp-controller="Shop">რედაქტირება</a>
-                                                    <a class="dropdown-item" asp-route-id="@item.Id" asp-action="Delete" asp-controller="Shop">წაშლა</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                        <tr class="border-0">
+                                            <th class="border-0 fga">
+
+                                            </th>
+                                            <th class="border-0 fga">
+                                                <input asp-for="searchName" type="text" name="searchName" value="@ViewBag.SearchName" class="form-control" />
+                                            </th>
+                                            <th class="border-0 fga">
+                                                <input asp-for="searchAddress" type="text" name="searchAddress" value="@ViewBag.SearchAddress" class="form-control" />
+                                            </th>
+                                            <th class="border-0 fga">
+                                                <select asp-for="searchType" asp-items="Model.Components.Types" name="searchType" class="form-control">
+                                                    <option value="0">აირჩიეთ</option>
+                                                </select>
+                                            </th>
+                                            <th class="border-0 fga">
+                                                <button type="submit" class="btn btn-primary">ძებნა</button>
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model.Shop)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.Address</td>
+                                                <td>@item.Type</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            ქმედება
+                                                        </a>
+
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                            <a class="dropdown-item" asp-route-id="@item.Id" asp-action="Edit" asp-controller="Shop">რედაქტირება</a>
+                                                            <a class="dropdown-item" asp-route-id="@item.Id" asp-action="Delete" asp-controller="Shop">წაშლა</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>

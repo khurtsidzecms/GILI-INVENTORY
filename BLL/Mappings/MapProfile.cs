@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.DTOs.Product;
+using BLL.DTOs.Shop;
 using DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,9 @@ namespace BLL.Mappings
                            opt => opt.MapFrom(src => src.Type.Name));
             CreateMap<ShopCUDTO, Shop>();
             CreateMap<Shop, ShopCUDTO>();
+
+            CreateMap<ShopProductDTO, ShopProduct>();
+            CreateMap<ShopProduct, ShopProductDTO>();
         }
     }
 }

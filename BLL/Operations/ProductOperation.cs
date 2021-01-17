@@ -27,6 +27,13 @@ namespace BLL.Operations
             return _mapper.Map<IEnumerable<ProductListDTO>>(products);
         }
 
+        public IEnumerable<ProductListDTO> SearchAll(string searchName, string searchCode, string searchBrand)
+        {
+            var products = _uow.Product.SearchAll(searchName, searchCode, searchBrand);
+
+            return _mapper.Map<IEnumerable<ProductListDTO>>(products);
+        }
+
         public ProductCUDTO GetProduct(int Id)
         {
             var product = _uow.Product.GetProduct(Id);

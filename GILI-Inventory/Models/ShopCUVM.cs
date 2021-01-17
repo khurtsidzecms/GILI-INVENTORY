@@ -11,6 +11,10 @@ namespace GILI_Inventory.Models
     {
         public ShopCUDTO Shop { get; set; }
 
+        public IEnumerable<ProductListDTO> Products { get; set; }
+
+        public IEnumerable<ShopProductDTO> ShopProducts { get; set; }
+
         public ShopCUComponents Components { get; set; }
     }
 }

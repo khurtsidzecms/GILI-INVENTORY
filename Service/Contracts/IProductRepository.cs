@@ -9,6 +9,8 @@ namespace Service.Contracts
     {
         IEnumerable<Product> GetAll();
 
+        IEnumerable<Product> SearchAll(string searchName, string searchCode, string searchBrand);
+
         Product GetProduct(int Id);
     }
 }

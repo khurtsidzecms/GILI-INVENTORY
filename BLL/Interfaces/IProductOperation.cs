@@ -10,6 +10,8 @@ namespace BLL.Interfaces
     {
         public IEnumerable<ProductListDTO> GetAll();
 
+        public IEnumerable<ProductListDTO> SearchAll(string searchName, string searchCode, string searchBrand);
+
         public ProductCUDTO GetProduct(int Id);
 
         public void CreateProduct(ProductCUDTO model);

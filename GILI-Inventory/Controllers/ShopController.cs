@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BLL.DTOs.Product;
+using BLL.DTOs.Shop;
 using BLL.Interfaces;
 using GILI_Inventory.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -16,17 +17,40 @@ namespace GILI_Inventory.Controllers
     {
         private readonly IShopOperation _shopOperation;
 
-        public ShopController(IShopOperation shopOperation)
+        private readonly IProductOperation _productOperation;
+
+        public ShopController(
+            IShopOperation shopOperation,
+            IProductOperation productOperation
+        )
         {
             _shopOperation = shopOperation;
+            _productOperation = productOperation;
         }
 
         public IActionResult Index()
         {
             ShopListVM model = new ShopListVM()
             {
-                Shop = _shopOperation.GetAll().OrderByDescending(e => e.Id)
+                Shop = _shopOperation.GetAll().OrderByDescending(e => e.Id),
+                Components = _shopOperation.GetShopFormComponents()
             };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string searchName, string searchAddress, int searchType)
+        {
+            ShopListVM model = new ShopListVM()
+            {
+                Shop = _shopOperation.SearchAll(searchName, searchAddress, searchType).OrderByDescending(e => e.Id),
+                Components = _shopOperation.GetShopFormComponents()
+            };
+
+            ViewBag.searchName = searchName;
+            ViewBag.searchAddress = searchAddress;
+            ViewBag.searchType = searchType;
 
             return View(model);
         }
@@ -65,6 +89,8 @@ namespace GILI_Inventory.Controllers
                 return View(GetUpdateShopModel(model.Shop));
             }
 
+            _shopOperation.DeleteProducts(model.Shop.Id);
+
             _shopOperation.UpdateShop(model.Shop);
 
             var viewModel = GetUpdateShopModel(model.Shop);
@@ -84,10 +110,13 @@ namespace GILI_Inventory.Controllers
 
         private ShopCUVM GetCreateShopModel(ShopCUDTO shop)
         {
+            IEnumerable<ProductListDTO> Products = _productOperation.GetAll();
+
             ShopCUVM model = new ShopCUVM()
             {
                 Components = _shopOperation.GetShopFormComponents(),
-                Shop = shop
+                Shop = shop,
+                Products = Products
             };
 
             return model;
@@ -95,10 +124,16 @@ namespace GILI_Inventory.Controllers
 
         private ShopCUVM GetUpdateShopModel(ShopCUDTO shop)
         {
+            IEnumerable<ProductListDTO> Products = _productOperation.GetAll();
+
+            IEnumerable<ShopProductDTO> ShopProducts = _shopOperation.GetProductAll(shop.Id);
+
             ShopCUVM model = new ShopCUVM()
             {
                 Components = _shopOperation.GetShopFormComponents(),
-                Shop = shop
+                Shop = shop,
+                Products = Products,
+                ShopProducts = ShopProducts
             };
 
             return model;

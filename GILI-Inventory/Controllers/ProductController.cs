@@ -34,6 +34,21 @@ namespace GILI_Inventory.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult Index(string searchName, string searchCode, string searchBrand)
+        {
+            ProductListVM model = new ProductListVM()
+            {
+                Products = _productOperation.SearchAll(searchName, searchCode, searchBrand).OrderByDescending(e => e.Id)
+            };
+
+            ViewBag.searchName = searchName;
+            ViewBag.searchCode = searchCode;
+            ViewBag.searchBrand = searchBrand;
+
+            return View(model);
+        }
+
         public IActionResult Create()
         {
             var model = GetCreateProductModel(new ProductCUDTO());

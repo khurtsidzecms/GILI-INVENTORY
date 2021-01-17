@@ -28,6 +28,20 @@ namespace BLL.Operations
             return _mapper.Map<IEnumerable<ShopListDTO>>(shops);
         }
 
+        public IEnumerable<ShopProductDTO> GetProductAll(int Id)
+        {
+            var shops = _uow.Shop.GetProductAll(Id);
+
+            return _mapper.Map<IEnumerable<ShopProductDTO>>(shops);
+        }
+
+        public IEnumerable<ShopListDTO> SearchAll(string searchName, string searchAddress, int searchType)
+        {
+            var shops = _uow.Shop.SearchAll(searchName, searchAddress, searchType);
+
+            return _mapper.Map<IEnumerable<ShopListDTO>>(shops);
+        }
+
         public ShopCUComponents GetShopFormComponents()
         {
             var dictionaries = _uow.Dictionary.GetShopFormComponents();
@@ -55,6 +69,12 @@ namespace BLL.Operations
             var dbShop = _uow.Shop.GetShop(model.Id);
             _mapper.Map<ShopCUDTO, Shop>(model, dbShop);
             _uow.Shop.Update(dbShop);
+            _uow.Commit();
+        }
+
+        public void DeleteProducts(int Id)
+        {
+            _uow.Shop.DeleteProducts(Id);
             _uow.Commit();
         }
 

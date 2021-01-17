@@ -25,3 +25,84 @@
         </div>
     </div>
 </div>
+
+<br /><br />
+
+<table class="table">
+    <thead class="bg-light">
+        <tr class="border-0">
+            <th class="border-0 fga">#</th>
+            <th class="border-0 fga">დასახელება</th>
+            <th class="border-0 fga">ფასი</th>
+            <th class="border-0 fga">ბარკოდი</th>
+            <th class="border-0 fga">მონიშვნა</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int max_range = 0;
+        }
+
+        @if (Model.Products.Count() > 0)
+        {
+            int counts = 0;
+            @foreach (var item in Model.Products)
+            {
+                if (counts == Model.Products.Count() - 1)
+                {
+                    max_range = item.Id;
+                }
+                counts++;
+            }
+        }
+
+        @{
+            int count = 0;
+            string[] Prices = new string[max_range + 1];
+            string[] Barcodes = new string[max_range + 1];
+        }
+
+        @if (Model.ShopProducts.Count() > 0)
+        {
+            @foreach (var item in Model.ShopProducts)
+            {
+                Prices[item.ProductId] = item.Price.ToString();
+                Barcodes[item.ProductId] = item.Barcode.ToString();
+            }
+        }
+
+        @foreach (var item in Model.Products)
+        {
+            string ItemPrice = !string.IsNullOrEmpty(Prices[item.Id]) ? Prices[item.Id] : "0";
+            string ItemBarcode = !string.IsNullOrEmpty(Barcodes[item.Id]) ? Barcodes[item.Id] : "0";
+            string ItemChecked = ItemPrice != "0" ? " checked" : "";
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>
+                    <input type="hidden" name="Shop.ShopProducts[@count].ProductId" value="@item.Id" />
+                    <input type="number" name="Shop.ShopProducts[@count].Price" step="1" class="form-control price" value="@ItemPrice" />
+                </td>
+                <td>
+                    <input type="text" name="Shop.ShopProducts[@count].Barcode" class="form-control barcode" value="@ItemBarcode" />
+                </td>
+                <td>
+                    <input type="checkbox" name="checkbox[]" value="1" class="form-control chkbox" @ItemChecked />
+                </td>
+            </tr>
+            count = count + 1;
+        }
+    </tbody>
+</table>
+
+<br /><br />
+
+<style>
+    table.table {
+        border: 1px solid #000;
+        max-width: 495px;
+    }
+    .chkbox {
+        zoom: 1.5;
+    }
+</style>

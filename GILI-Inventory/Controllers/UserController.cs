@@ -43,18 +43,25 @@ namespace GILI_Inventory.Controllers
                     Email = model.Email,
                 };
 
-                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
+                if (model.Password != null)
                 {
-                    return RedirectToAction(nameof(Index));
+                    IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        foreach (IdentityError error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                    }
                 }
                 else
                 {
-                    foreach(IdentityError error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
+                    ModelState.AddModelError("", "შეავსეთ სწორად ადმინისტრატორის მონაცემები");
                 }
             }
 
